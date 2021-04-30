@@ -8,6 +8,7 @@ const SearchBar = (event) => {
   const [filter, setFilter] = useState("agency_code");
   const [searchStr, setSearchStr] = useState("");
   const [matches, setMatches] = useState([]);
+  let indicators = {};
   let searchString = "";
   let results = [
     {
@@ -74,6 +75,20 @@ const SearchBar = (event) => {
     searchStr = input;
     setSearchStr(searchStr);
   };
+  const updateInds = (event) => {
+    if (event.target.type === "checkbox") {
+      indicators[event.target.name] =
+        event.target.checked  ? true : false;
+    } else indicators[event.target.name] = event.target.value;
+        console.log("ind", indicators);
+  };
+  const save = (e) => {
+    e.preventDefault()  
+    // indic
+    // indicators = {}
+    // result = []
+    console.log("you saved your selections", indicators);
+  }
 
   return (
     <main className="container searchBar">
@@ -107,6 +122,7 @@ const SearchBar = (event) => {
           </div>
         </form>
       </div>
+      <form onSubmit={save}>
       <div class="row results">
         <div class="locations col row">
           <span>
@@ -172,11 +188,32 @@ const SearchBar = (event) => {
               </tr>
             </tbody>
           </table>
-          {claimsSel.map( (claims)=> <CheckBoxes data={claims}  type= "radio"/>)}
-          {lines.map( (claims)=> <CheckBoxes data={claims} />)}
-          {secondary.map( (claims)=> <CheckBoxes data={claims} />)}
+          {claimsSel.map((claims) => (
+            <CheckBoxes
+              data={claims}
+              indicators={indicators}
+              updateIndicators={(event) => updateInds(event)}
+            />
+          ))}
+          {lines.map((claims) => (
+            <CheckBoxes
+              data={claims}
+              indicators={indicators}
+              updateIndicators={(event) => updateInds(event)}
+            />
+          ))}
+          {secondary.map((claims) => (
+            <CheckBoxes
+              data={claims}
+              indicators={indicators}
+              updateIndicators={(event) => updateInds(event)}
+              type="radio"
+            />
+          ))}
         </div>
       </div>
+      <button onClick={save}>Save!</button>
+      </form>
     </main>
   );
 };

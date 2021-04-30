@@ -1,25 +1,42 @@
 import React from "react";
 
-import {} from "module";
-
-const CheckBoxes = ({ data, type }) => {
-  console.log("data", data);
+const CheckBoxes = ({
+  data,
+  type = "checkbox",
+  updateIndicators,
+  indicators,
+}) => {
   const [htmlId, heading, labels] = data;
-  console.log("head", heading);
+  console.log("data", data);
+  const selAll = (e) => {
+    const checked = e.target.checked;
+    console.log("checked", checked);
 
+    document.querySelectorAll("." + e.target.id).forEach((elem) => {
+      console.log("elem", elem);
+        if(elem.disabled === true){
+          console.log("checked", checked);
+      }
+      else{
+        elem.checked = checked
+      };
+    });
+  };
+  console.log("the indicators", indicators);
   return (
     <div class="container">
       <h5>{heading}</h5>
       <table class="table table-sm table-borderless">
-        {type === 'checkbox' ? (
+        {type === "checkbox" ? (
           <thead>
             <tr class="form-check">
               <th>
                 <input
                   type="checkbox"
                   id={htmlId}
+                  //   className={}
                   class="form-check-input"
-                  //   on:change={selAll}
+                  onClick={selAll}
                 />
               </th>
               <th>
@@ -30,26 +47,28 @@ const CheckBoxes = ({ data, type }) => {
         ) : null}
         <tbody>
           {labels.map((label, index) => {
-            const [key,tmp, disabled, value] = label;
+            const [key, tmp, disabled, value, indicators] = label;
 
             return (
               <tr class="form-check">
                 <td>
-                  {type === 'checkbox' ? (
+                  {type === "checkbox" ? (
                     <input
                       type="checkbox"
                       id={htmlId + "-" + index}
                       disabled={disabled}
-                      //    bind:checked={indicators[key]}
-                      class="form-check-input"
+                      onChange={updateIndicators}
+                      className={`form-check-input ${htmlId}`}
+                      name={key}
                     />
                   ) : (
                     <input
                       type="radio"
                       id={htmlId + "-" + index}
                       disabled={disabled}
-                      // bind:group={indicators[key]}
-                      value={value}
+                      name={heading}
+                      value={tmp}
+                      onChange={updateIndicators}
                       class="form-check-input"
                     />
                   )}
@@ -62,7 +81,6 @@ const CheckBoxes = ({ data, type }) => {
           })}
         </tbody>
       </table>
-      
     </div>
   );
 };
