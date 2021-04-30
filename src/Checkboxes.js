@@ -62,7 +62,7 @@ const CheckBoxes = ({ data, type }) => {
           })}
         </tbody>
       </table>
-      }
+      
     </div>
   );
 };
