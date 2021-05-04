@@ -34,7 +34,6 @@ const CheckBoxes = ({
                 <input
                   type="checkbox"
                   id={htmlId}
-                  //   className={}
                   class="form-check-input"
                   onClick={selAll}
                 />
