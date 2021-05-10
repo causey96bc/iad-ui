@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
-
+import  User  from "./components/User";
 import { searchKeys, lines, claimsSel, secondary } from "./metaconfig";
-import CheckBoxes from "./Checkboxes";
-
-const SearchPage = (event) => {
+import CheckBoxes from "./components/Checkboxes";
+const SearchPage = (event, user) => {
   const [filter, setFilter] = useState("agency_name");
   const [searchStr, setSearchStr] = useState("");
   const [matches, setMatches] = useState([]);

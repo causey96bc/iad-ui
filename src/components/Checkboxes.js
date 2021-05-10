@@ -4,17 +4,15 @@ const CheckBoxes = ({
   data,
   type = "checkbox",
   updateIndicators,
-  indicators,
 }) => {
   const [htmlId, heading, labels] = data;
   const selAll = (e) => {
-  const checked = e.target.checked;
+    const checked = e.target.checked;
     document.querySelectorAll("." + e.target.id).forEach((elem) => {
-        if(elem.disabled === true){
+      if (elem.disabled === true) {
+      } else {
+        elem.checked = checked;
       }
-      else{
-        elem.checked = checked
-      };
     });
   };
   return (
