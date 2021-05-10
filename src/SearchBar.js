@@ -94,6 +94,8 @@ const SearchBar = (event) => {
     <main className="container searchBar">
       <div className="d-flex">
         <form className="form-group" onSubmit={search}>
+        <div class="row results">
+         <div class="locations col row">
           <div className="input-group">
             <div className="input-group-text">Search By</div>
             <select
@@ -119,6 +121,8 @@ const SearchBar = (event) => {
             <button className="btn btn-primary" type="submit">
               Search
             </button>
+          </div>
+          </div>
           </div>
         </form>
       </div>
@@ -188,20 +192,30 @@ const SearchBar = (event) => {
               </tr>
             </tbody>
           </table>
-          {claimsSel.map((claims) => (
+          </div>
+          <div class="col details">
+          <h4>Agency Details</h4>
+          <div class="details">Some details ... from IVANS/PMACS/AIDB</div>
+          </div>
+          <div className="row selections">
+              <div className="services col">
+              {lines.map((claims) => (
+                <CheckBoxes
+                  data={claims}
+                  indicators={indicators}
+                  updateIndicators={(event) => updateInds(event)}
+                />
+              ))}
+            <div className="secondary col">
+            {claimsSel.map((claims) => (
             <CheckBoxes
               data={claims}
               indicators={indicators}
               updateIndicators={(event) => updateInds(event)}
             />
           ))}
-          {lines.map((claims) => (
-            <CheckBoxes
-              data={claims}
-              indicators={indicators}
-              updateIndicators={(event) => updateInds(event)}
-            />
-          ))}
+          </div>
+          
           {secondary.map((claims) => (
             <CheckBoxes
               data={claims}
@@ -210,9 +224,11 @@ const SearchBar = (event) => {
               type="radio"
             />
           ))}
+          </div>
         </div>
-      </div>
+      
       <button onClick={save}>Save!</button>
+      </div>
       </form>
     </main>
   );
