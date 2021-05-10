@@ -1,11 +1,11 @@
 import './App.css';
-import  SearchBar  from "./SearchBar";
+import SearchPage from './SearchBar';
 function App() {
   return (
     <div className="App">
       <main className="container">
       <div className= "row"> 
-      <SearchBar />
+      <SearchPage />
       </div>
       </main>
     </div>

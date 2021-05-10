@@ -4,7 +4,7 @@ import "./SearchBar.css";
 import { searchKeys, lines, claimsSel, secondary } from "./metaconfig";
 import CheckBoxes from "./Checkboxes";
 
-const SearchBar = (event) => {
+const SearchPage = (event) => {
   const [filter, setFilter] = useState("agency_name");
   const [searchStr, setSearchStr] = useState("");
   const [matches, setMatches] = useState([]);
@@ -233,4 +233,4 @@ const SearchBar = (event) => {
   );
 };
 
-export default SearchBar;
+export default SearchPage;
