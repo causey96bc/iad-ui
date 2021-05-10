@@ -5,7 +5,7 @@ import { searchKeys, lines, claimsSel, secondary } from "./metaconfig";
 import CheckBoxes from "./Checkboxes";
 
 const SearchBar = (event) => {
-  const [filter, setFilter] = useState("agency_code");
+  const [filter, setFilter] = useState("agency_name");
   const [searchStr, setSearchStr] = useState("");
   const [matches, setMatches] = useState([]);
   let indicators = {};
@@ -65,10 +65,9 @@ const SearchBar = (event) => {
       result.checked = false;
       return result[filter].includes(searchStr);
     });
-    console.log("matches: ", matches);
+    console.log(matches, "matches");
     setMatches(matches);
   };
-  console.log("matches:", matches);
 
   const searchHandler = (event, searchStr) => {
     let input = event.target.value;

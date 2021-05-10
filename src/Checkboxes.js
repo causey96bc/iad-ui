@@ -7,22 +7,16 @@ const CheckBoxes = ({
   indicators,
 }) => {
   const [htmlId, heading, labels] = data;
-  console.log("data", data);
   const selAll = (e) => {
-    const checked = e.target.checked;
-    console.log("checked", checked);
-
+  const checked = e.target.checked;
     document.querySelectorAll("." + e.target.id).forEach((elem) => {
-      console.log("elem", elem);
         if(elem.disabled === true){
-          console.log("checked", checked);
       }
       else{
         elem.checked = checked
       };
     });
   };
-  console.log("the indicators", indicators);
   return (
     <div class="container">
       <h5>{heading}</h5>
