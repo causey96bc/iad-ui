@@ -57,6 +57,14 @@ const SearchPage = (event, user) => {
     },
   ];
 
+  const fetchData = async () => {
+    const url = "https://q5gjy1glol.execute-api.us-east-1.amazonaws.com/dev/hello-2"
+    const data =  await fetch(url);
+    const info = await data.json()
+    console.log("this is the data", info);
+  }
+fetchData()
+
   const search = (event) => {
     event.preventDefault();
     // let finding = results.find(result => (result[filter] === searchStr))
