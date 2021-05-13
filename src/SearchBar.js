@@ -56,15 +56,29 @@ const SearchPage = (event, user) => {
       ivans_account: "YD6X2",
     },
   ];
-
+  const debounce =  (func, timeout = 500) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
   const fetchData = async () => {
     const url = "https://q5gjy1glol.execute-api.us-east-1.amazonaws.com/dev/hello-2"
     const data =  await fetch(url);
-    const info = await data.json()
+    const info = await data.json();
     console.log("this is the data", info);
   }
-fetchData()
-
+  const searchData = async (event) => {
+    let input = event.target.value;
+    let searchStr = input;
+    setSearchStr(searchStr);
+    const url = `https://q5gjy1glol.execute-api.us-east-1.amazonaws.com/dev/search/${searchStr}`;
+    const results = await fetch(url);
+    const data = await results.json();
+    console.log("data", data.items);
+    // setMatches([))
+  }
   const search = (event) => {
     event.preventDefault();
     // let finding = results.find(result => (result[filter] === searchStr))
@@ -76,11 +90,9 @@ fetchData()
     setMatches(matches);
   };
 
-  const searchHandler = (event, searchStr) => {
-    let input = event.target.value;
-    searchStr = input;
-    setSearchStr(searchStr);
-  };
+  // const searchHandler = (event, searchStr) => {
+    
+  // };
   const updateInds = (event) => {
     if (event.target.type === "checkbox") {
       indicators[event.target.name] =
@@ -93,7 +105,7 @@ fetchData()
     // indic
     // indicators = {}
     // result = []
-    console.log("you saved your selections", indicators);
+    // console.log("you saved your selections", indicators);
   }
 
   return (
@@ -121,7 +133,7 @@ fetchData()
             </select>
             <input
               className="form-control"
-              onChange={searchHandler}
+              onChange={searchData}
               placeholder="type part of the search key and press ENTER"
             />
             <button className="btn btn-primary" type="submit">
