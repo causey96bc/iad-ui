@@ -7,8 +7,6 @@ const CheckBoxes = ({
   updateIndicators,
 }) => {
   const [htmlId, heading, labels] = data;
-  // console.log("data", data);
-  // console.log("indicators", indicators);
   const selAll = (e) => {
     const checked = e.target.checked;
     document.querySelectorAll("." + e.target.id).forEach((elem) => {
@@ -42,7 +40,6 @@ const CheckBoxes = ({
         <tbody>
           {labels.map((label, index) => {
             const [key, tmp, disabled, value] = label;
-            // console.log("key", key, indicators[key]);
             return (
               <tr class="form-check">
                 <td>
