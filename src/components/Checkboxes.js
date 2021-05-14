@@ -2,10 +2,13 @@ import React from "react";
 
 const CheckBoxes = ({
   data,
+  indicators = {},
   type = "checkbox",
   updateIndicators,
 }) => {
   const [htmlId, heading, labels] = data;
+  // console.log("data", data);
+  // console.log("indicators", indicators);
   const selAll = (e) => {
     const checked = e.target.checked;
     document.querySelectorAll("." + e.target.id).forEach((elem) => {
@@ -38,8 +41,8 @@ const CheckBoxes = ({
         ) : null}
         <tbody>
           {labels.map((label, index) => {
-            const [key, tmp, disabled, value, indicators] = label;
-
+            const [key, tmp, disabled, value] = label;
+            // console.log("key", key, indicators[key]);
             return (
               <tr class="form-check">
                 <td>
@@ -51,6 +54,7 @@ const CheckBoxes = ({
                       onChange={updateIndicators}
                       className={`form-check-input ${htmlId}`}
                       name={key}
+                      checked={indicators[key] == 'D'}
                     />
                   ) : (
                     <input
