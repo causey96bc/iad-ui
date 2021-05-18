@@ -1,7 +1,7 @@
 export const searchKeys = [
-    ["agency_name", "Agency Name"],
-    ["agency_code", "Agency Code"],
+    // ["agency_name", "Agency Name"],
     ["ivans_account", "IVANS Account"],
+    ["agency_code", "Agency Code"],
   ];
   export const lines = [
     [

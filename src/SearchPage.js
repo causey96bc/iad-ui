@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import "./SearchBar.css";
+import "./SearchPage.css";
 import  User  from "./components/User";
-import { searchKeys, lines, claimsSel, secondary } from "./metaconfig";
+import {searchKeys,lines, claimsSel, secondary } from "./metaconfig";
 import CheckBoxes from "./components/Checkboxes";
 
-const SearchPage = (event, user) => {
+
+const SearchPage = ({event, user, config}) => {
+  const [searchKey, setSearchKey] = useState("ivans_account")
   const [filter, setFilter] = useState("agency_name");
   const [searchStr, setSearchStr] = useState("");
   const [activeRow, setActiveRow] = useState(null);
@@ -12,20 +14,17 @@ const SearchPage = (event, user) => {
   let indicators = {};
   const searchData = async (event) => {
     event.preventDefault()
-    const url = `https://q5gjy1glol.execute-api.us-east-1.amazonaws.com/dev/search/${searchStr}`;
+    const url = `${config.api_url}/agency-location?search-key=${searchKey}&search-str=${searchStr}`;
     const results = await fetch(url);
     const data = await results.json();
-    if(data && data.items && data.items[0]){
-      console.log("data", data);
-      // for (const [key, value] of Object.keys(data.items[0])){
-      //   console.log(`${key}: ${value}`);
-      // } 
-      setMatches(data.items);
-      setActiveRow(data.items[0]);
+    if(data && data.data){
+      setMatches(data.data);
+      setActiveRow(data.data);
     } else {
       setMatches([]);
       setActiveRow(null);
     }
+    console.log("matches", [data.data]);
   }
   const updateInds = (event) => {
     if (event.target.type === "checkbox") {
@@ -34,8 +33,8 @@ const SearchPage = (event, user) => {
     } else indicators[event.target.name] = event.target.value;
         console.log("ind", indicators);
   };
-  const save = (e) => {
-    e.preventDefault()  
+  const updateCheckboxes = (e) => {
+    e.preventDefault(); 
     // indicators = {}
     // form reset
     // console.log("you saved your selections", indicators);
@@ -52,7 +51,7 @@ const SearchPage = (event, user) => {
                 <select
                   className="input-group-text"
                   onChange={(event) => {
-                    setFilter(event.target.value);
+                    setSearchKey(event.target.value);
                   }}
                 >
                   {searchKeys.map((searchKey, key) => {
@@ -77,7 +76,7 @@ const SearchPage = (event, user) => {
           </div>
         </form>
       </div>
-      <form onSubmit={save}>
+      <form>
         <div class="row results">
           <div class="locations col row">
             <span>
@@ -161,12 +160,14 @@ const SearchPage = (event, user) => {
                   data={claims}
                   indicators={activeRow.dl_selections}
                   updateIndicators={(event) => updateInds(event)}
-                  type="radio"
+                  type="radio" 
                 />
               ))}
             </div>
           </div>
-          <button onClick={save}>Save!</button>
+          <button className="btn btn-primary" type="submit">
+                  Save
+                </button>
           </>
           }
         </div>
