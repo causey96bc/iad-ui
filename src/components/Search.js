@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, {useState} from "react";
 import { searchKeys } from "../metaconfig";
 
 const Search = ({ config, store }) => {
@@ -12,12 +12,9 @@ const Search = ({ config, store }) => {
     const data = await results.json();
     if (data && data.data) {
       store.setMatches(data.data);
-      // store.setActive(data.data);
     } else {
       store.setMatches([]);
-      // store.setActive(null);
     }
-    console.log("data", data.data);
   };
 
   return (
