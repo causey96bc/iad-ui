@@ -1,10 +1,11 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 
 const CheckBoxes = ({
+  store,
   data,
   indicators = {},
   type = "checkbox",
-  updateIndicators,
 }) => {
   const [htmlId, heading, labels] = data;
   const selAll = (e) => {
@@ -16,32 +17,36 @@ const CheckBoxes = ({
       }
     });
   };
+  const updateIndicators = (e) => {
+    store.updateIndicators({'name': e.target.name, 'value': e.target.checked});
+  }
+
   return (
-    <div class="container">
+    <div className="container">
       <h5>{heading}</h5>
-      <table class="table table-sm table-borderless">
+      <table className="table table-sm table-borderless">
         {type === "checkbox" ? (
           <thead>
-            <tr class="form-check">
+            <tr className="form-check">
               <th>
                 <input
                   type="checkbox"
                   id={htmlId}
-                  class="form-check-input"
+                  className="form-check-input"
                   onClick={selAll}
                 />
               </th>
               <th>
-                <label class="form-check-label">select all</label>
+                <label className="form-check-label">select all</label>
               </th>
             </tr>
           </thead>
         ) : null}
         <tbody>
           {labels.map((label, index) => {
-            const [key, tmp, disabled, value] = label;
+            const [key, tmp, disabled ] = label;
             return (
-              <tr class="form-check">
+              <tr className="form-check">
                 <td>
                   {type === "checkbox" ? (
                     <input
@@ -51,7 +56,7 @@ const CheckBoxes = ({
                       onChange={updateIndicators}
                       className={`form-check-input ${htmlId}`}
                       name={key}
-                      checked={indicators[key] == 'D'}
+                      checked={indicators[key]}
                     />
                   ) : (
                     <input
@@ -61,12 +66,12 @@ const CheckBoxes = ({
                       name={heading}
                       value={tmp}
                       onChange={updateIndicators}
-                      class="form-check-input"
+                      className="form-check-input"
                     />
                   )}
                 </td>
                 <td>
-                  <label class="form-check-label"> {tmp}</label>
+                  <label className="form-check-label"> {tmp}</label>
                 </td>
               </tr>
             );
@@ -77,4 +82,4 @@ const CheckBoxes = ({
   );
 };
 
-export default CheckBoxes;
+export default observer(CheckBoxes);

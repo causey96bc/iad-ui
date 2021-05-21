@@ -1,15 +1,17 @@
 import './App.css';
-import  React, {useState}  from "react";
+import  React from "react";
+import SearchStore  from "./SearchStore.js";
 import User from './components/User';
 import  SearchPage  from "./SearchPage";
 function App({config}) {
-  const [user, setUser] = useState({})
+  const store = new SearchStore();
+  // const [user, setUser] = useState({})
   return (
     <div className="App">
       <main className="container">
       <div className= "row"> 
-      <User user={user}/>
-      <SearchPage config={config}/>
+      <User/>
+      <SearchPage config={config} store={store}/>
       </div>
       </main>
     </div>

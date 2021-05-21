@@ -1,4 +1,4 @@
-export default [
+const data = [
     {
       agency_code: "021048",
       agency_name: "PCF INS SVS DBA CAPITAL WEST  ",
@@ -45,3 +45,4 @@ export default [
       ivans_account: "YD6X2",
     },
   ];
+export default data
