@@ -9,21 +9,35 @@ import SearchResults from "./components/SearchResults.js";
 
 
 const SearchPage = ({config, store}) => {
-  console.log("do i Render?");
-  console.log("active", toJS(store.active));
-  // const updateCheckboxes = (e) => {
-  //   e.preventDefault(); 
-  //   // indicators = {}
-  //   // form reset
-  //   // console.log("you saved your selections", indicators);
-  // }
+  async function updateAgency(row) {
+    const url = `${config.api_url}/agency-location?id=${store.active.agency_code}`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(store.active),
+    });
+    const json = await response.json();
+    return json;
+  }
+  async function save(e){
+    e.preventDefault()
+    if(store.active){
+      await updateAgency(store.active)
+    }
+    else{
+      store.active = null
+    }
+
+  }
 
   return (
     <main className="container searchBar">
       <div className="d-flex">
         <Search config={config} store={store}/>
       </div>
-      <form>
+      <form onSubmit={save}>
         {store.matches.length > 0 ? 
         <div>
          <SearchResults store={store} config={config}/> 
