@@ -9,8 +9,6 @@ class SearchStore {
       active: observable,
       setMatches: action,
       setActive: action,
-      getMatches: action,
-      getActive: action,
       updateIndicators: action,
       hasActive: computed,
     });
