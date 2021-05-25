@@ -1,20 +1,30 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { searchKeys } from "../metaconfig";
-
-const Search = ({ config, store }) => {
+const Search = ({ config, store, messageStore }) => {
   const [searchKey, setSearchKey] = useState("ivans_account");
   const [searchStr, setSearchStr] = useState("");
 
   const searchData = async (event) => {
     event.preventDefault();
     const url = `${config.api_url}/agency-location?search-key=${searchKey}&search-str=${searchStr}`;
-    const results = await fetch(url);
+    const results = await fetch(url, {
+      headers: {
+        Authorization: "Bearer 1234",
+      },
+    });
+    store.setSearching(true)
     const data = await results.json();
-    if (data && data.data) {
-      store.setMatches(data.data);
-    } else {
-      store.setMatches([]);
-    }
+    setTimeout(() => {
+      if (data && data.data) {
+        store.setMatches(data.data);
+      } else {
+        store.setMatches([]);
+      }
+      store.setSearching(false)
+    }, 1000);
+    messageStore.addMessages("test message 1");
+    messageStore.addMessages("test message 2");
+    messageStore.addMessages("test message 3");
   };
 
   return (

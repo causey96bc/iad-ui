@@ -3,10 +3,13 @@ import { observable, action, makeObservable, computed, autorun } from "mobx";
 class SearchStore {
   matches = [];
   active = {};
+  searching =  false;
   constructor() {
     makeObservable(this, {
       matches: observable,
       active: observable,
+      searching: observable,
+      setSearching: action,
       setMatches: action,
       setActive: action,
       updateIndicators: action,
@@ -18,6 +21,11 @@ class SearchStore {
   logStoreDetails = () => {
     console.log("store logger");
   };
+  
+  setSearching(isSearching){
+    this.searching = isSearching
+  }
+  
   setActive(active) {
     this.active = active;
   }
