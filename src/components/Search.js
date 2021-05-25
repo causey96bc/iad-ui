@@ -12,7 +12,7 @@ const Search = ({ config, store, messageStore }) => {
         Authorization: "Bearer 1234",
       },
     });
-    store.setSearching(true)
+    store.setFetching(true)
     const data = await results.json();
     setTimeout(() => {
       if (data && data.data) {
@@ -20,8 +20,8 @@ const Search = ({ config, store, messageStore }) => {
       } else {
         store.setMatches([]);
       }
-      store.setSearching(false)
-    }, 1000);
+      store.setFetching(false)
+    }, 500);
     messageStore.addMessages("test message 1");
     messageStore.addMessages("test message 2");
     messageStore.addMessages("test message 3");

@@ -39,7 +39,7 @@ const SearchPage = ({ config, store, messageStore }) => {
         <Search messageStore={messageStore} config={config} store={store} />
       </div>
       <form onSubmit={save}>
-        {store.searching ?
+        {store.fetching ?
          <Spinner animation="border" role="status"></Spinner> 
          : store.matches.length > 0 ?
           <div>

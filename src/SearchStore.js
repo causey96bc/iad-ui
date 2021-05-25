@@ -8,8 +8,8 @@ class SearchStore {
     makeObservable(this, {
       matches: observable,
       active: observable,
-      searching: observable,
-      setSearching: action,
+      fetching: observable,
+      setFetching: action,
       setMatches: action,
       setActive: action,
       updateIndicators: action,
@@ -22,10 +22,10 @@ class SearchStore {
     console.log("store logger");
   };
   
-  setSearching(isSearching){
-    this.searching = isSearching
+  setFetching(isFetching){
+    this.fetching = isFetching
   }
-  
+
   setActive(active) {
     this.active = active;
   }
