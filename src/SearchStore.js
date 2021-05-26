@@ -3,17 +3,21 @@ import { observable, action, makeObservable, computed, autorun } from "mobx";
 class SearchStore {
   matches = [];
   active = {};
-  searching =  false;
+  fetching =  false;
+  hasSearched = false
   constructor() {
     makeObservable(this, {
       matches: observable,
       active: observable,
       fetching: observable,
+      hasSearched: observable,
+      setHasSearched: action,
       setFetching: action,
       setMatches: action,
       setActive: action,
       updateIndicators: action,
       hasActive: computed,
+      getMatches: computed,
     });
     autorun(this.logStoreDetails);
   }
@@ -22,6 +26,10 @@ class SearchStore {
     console.log("store logger");
   };
   
+  setHasSearched(isSearching){
+    this.hasSearched = isSearching
+  }
+
   setFetching(isFetching){
     this.fetching = isFetching
   }
@@ -31,6 +39,9 @@ class SearchStore {
   }
   setMatches(matches) {
     this.matches = matches;
+  }
+  get getMatches(){
+    return this.matches.length
   }
   updateIndicators({name, value}) {
     const newActive = {};
