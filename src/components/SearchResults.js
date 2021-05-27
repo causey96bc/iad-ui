@@ -9,25 +9,15 @@ import {
   TableRow,
   TableCell,
   Grid,
-  TablePagination
+  TablePagination,
+  Box
 } from "@material-ui/core";
-import { DataGrid } from "@material-ui/data-grid";
-const SearchResults = ({ store, config }) => {
-  const dataRow = toJS(store.matches).map((row, key) => {
-    return {
-      id: key,
-      code: row.agency_code,
-      account: row.ivans_account,
-      name: row.agency_name,
-    };
-  });
+const SearchResults = ({ store }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -38,8 +28,7 @@ const SearchResults = ({ store, config }) => {
     <span>
     <h4>Agencies</h4>
   </span>    
-    <Grid container>
-      
+    <Grid container spacing={5} >
       <Grid item xs={12} sm={8}>
         <Table size={"small"}>
         <TableHead>
@@ -82,11 +71,15 @@ const SearchResults = ({ store, config }) => {
       <Grid item xs={12} sm={4}>
         <div className="details">
           <h4>Additional information</h4>
-          {store.active && (
-            <ul>
-              <li>Last Update: {store.active.last_upd_date}</li>
-              <li>Machine Address: {store.active.ibm_machine_address}</li>
-            </ul>
+          {store.hasActive && (
+          <Grid container>
+              <Box color="text.primary"> Address: {store.active.address.line_1}, { store.active.address.city}, {store.active.address.state} {store.active.address.zip}</Box>
+              <Grid item>
+              <Box>Phone: {store.active.phone_number}</Box>
+              <Box>Last Update: {store.active.last_upd_date}</Box>
+              <Box>Machine Address: {store.active.ibm_machine_address}</Box>
+              </Grid>
+            </Grid>
           )}
         </div>
       </Grid>
