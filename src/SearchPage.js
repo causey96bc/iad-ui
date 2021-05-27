@@ -15,7 +15,8 @@ import {
   FormControl,
   FormGroup,
   FormLabel,
-  ButtonGroup
+  ButtonGroup,
+  Grid,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -46,14 +47,11 @@ const SearchPage = ({ config, store, messageStore }) => {
     root: {
       display: "flex",
     },
-    formControl: {
-      margin: theme.spacing(3),
-    },
   }));
   const classes = useStyles();
 
   return (
-    <Container fluid>
+    <Container container>
       <Search messageStore={messageStore} config={config} store={store} />
       <form onSubmit={save}>
         {store.fetching ? (
@@ -63,12 +61,15 @@ const SearchPage = ({ config, store, messageStore }) => {
             <Messages messageStore={messageStore} />
             <SearchResults store={store} config={config} />
           </div>
-        ): store.hasSearched ? (
-        <p>no matches found</p>): <></>}
+        ) : store.hasSearched ? (
+          <p>no matches found</p>
+        ) : (
+          <></>
+        )}
         {store.hasActive && (
-          <>
-            <div className={classes.root}>
-            <FormControl component="fieldset" className={classes.formControl}>
+          <Grid container spacing={2}>
+            <Grid item md={6}>
+            <FormControl component="fieldset"  className={classes.formControl}>
               <FormLabel component="legend">Lines Selections</FormLabel>
               {lines.map((claims, key) => (
                 <CheckBoxes
@@ -80,9 +81,10 @@ const SearchPage = ({ config, store, messageStore }) => {
                 />
               ))}
             </FormControl>
+            </Grid>
+            <Grid item md={6}>
             <FormControl component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Claims Selections</FormLabel>
-              <div className="secondary col">
                 {claimsSel.map((claims, key) => (
                   <CheckBoxes
                     store={store}
@@ -92,9 +94,6 @@ const SearchPage = ({ config, store, messageStore }) => {
                     //updateIndicators={(event) => updateInds(event)}
                   />
                 ))}
-              </div>
-            </FormControl>
-            <FormControl component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">Secondary Selections</FormLabel>
               {secondary.map((claims, key) => (
                 <CheckBoxes
@@ -107,16 +106,16 @@ const SearchPage = ({ config, store, messageStore }) => {
                 />
               ))}
               <ButtonGroup>
-              <Button variant="contained" color="primary" type="submit">
-                Save
-              </Button>
-              <Button variant="contained" color="secondary">
-                Cancel
-              </Button>
+                <Button variant="contained" color="primary" type="submit">
+                  Save
+                </Button>
+                <Button variant="contained" color="secondary">
+                  Cancel
+                </Button>
               </ButtonGroup>
             </FormControl>
-            </div>
-          </>
+            </Grid>
+            </Grid>
         )}
       </form>
     </Container>
