@@ -12,7 +12,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const Search = ({ config, store, messageStore }) => {
   const [searchKey, setSearchKey] = useState("ivans_account");
   const [searchStr, setSearchStr] = useState("");
-
   const searchData = async (event) => {
     event.preventDefault();
     store.setHasSearched(true)
@@ -33,11 +32,7 @@ const Search = ({ config, store, messageStore }) => {
       store.setFetching(false);
     }, 500);
     messageStore.addMessages("test message 1");
-    messageStore.addMessages("test message 2");
-    messageStore.addMessages("test message 3");
   };
-
-
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
