@@ -9,10 +9,11 @@ export const searchKeys = [
       "Commercial Lines Policies",
       [
         ["commercial_auto", "Commercial Auto"],
-        ["business_owner", "Business Owner"],
+        ["bop", "Business Owner"],
         ["workers_comp", "Workers Compensation"],
         ["commercial_umb", "Commercial Umbrella"],
         ["general_liability", "General Liability"],
+        ["contractors", "Contractors" ]
       ],
     ],
     [
@@ -49,8 +50,8 @@ export const searchKeys = [
       "rd-clm",
       "Claims Selection",
       [
-        ["full", "Full"],
-        ["lite", "Lite"],
+        // ["full", "Full"],
+        // ["lite", "Lite"],
       ],
     ],
   ];

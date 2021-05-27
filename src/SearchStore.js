@@ -18,6 +18,7 @@ class SearchStore {
       updateIndicators: action,
       hasActive: computed,
       getMatches: computed,
+      selectAll: action,
     });
     autorun(this.logStoreDetails);
   }
@@ -54,6 +55,18 @@ class SearchStore {
   get hasActive() {
     return Object.keys(this.active).length > 0 ? true : false
   }
+  selectAll(names, checked){
+    const newName = {}
+      Object.keys(this.active.dl_selections).forEach((name) => {
+        console.log("name", name);
+        if (names.includes(name)){
+      newName[name] = checked
+      }else{
+        newName[name] = this.active.dl_selections[name]
+      }})
+    this.active.dl_selections  = newName
+  }
 }
+
 
 export default SearchStore

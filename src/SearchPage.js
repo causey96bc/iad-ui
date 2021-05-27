@@ -70,7 +70,6 @@ const SearchPage = ({ config, store, messageStore }) => {
           <Grid container spacing={2}>
             <Grid item md={6}>
             <FormControl component="fieldset"  className={classes.formControl}>
-              <FormLabel component="legend">Lines Selections</FormLabel>
               {lines.map((claims, key) => (
                 <CheckBoxes
                   store={store}
@@ -84,7 +83,6 @@ const SearchPage = ({ config, store, messageStore }) => {
             </Grid>
             <Grid item md={6}>
             <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Claims Selections</FormLabel>
                 {claimsSel.map((claims, key) => (
                   <CheckBoxes
                     store={store}
@@ -94,7 +92,6 @@ const SearchPage = ({ config, store, messageStore }) => {
                     //updateIndicators={(event) => updateInds(event)}
                   />
                 ))}
-              <FormLabel component="legend">Secondary Selections</FormLabel>
               {secondary.map((claims, key) => (
                 <CheckBoxes
                   store={store}
