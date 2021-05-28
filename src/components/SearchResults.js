@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
 import {
   Checkbox,
   Table,
@@ -16,6 +15,7 @@ import {
 const SearchResults = ({ store }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
     console.log("e", newPage);
@@ -24,9 +24,7 @@ const SearchResults = ({ store }) => {
     setRowsPerPage(parseInt(event.target.value));
     setPage(0);
   };
-  const hoveredStyle = {
-    cursor: "pointer",
-  };
+
   const useStyles = makeStyles((theme) => ({
     tableRow: {
       "&$hover:hover": {
@@ -35,7 +33,11 @@ const SearchResults = ({ store }) => {
     },
     hover: {},
   }));
+
   const classes = useStyles();
+  const hoveredStyle = {
+    cursor: "pointer",
+  };
   return (
     <>
       <span>

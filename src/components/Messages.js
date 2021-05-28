@@ -6,18 +6,11 @@ const Messages = ({ messageStore }) => {
     float: "right",
     cursor: "pointer",
   };
+
   return (
     <div>
-      {messageStore.messages.map((m, index) => (
-        <div className="alert alert-primary">
-          {m}
-          <span
-            style={closeStyles}
-            onClick={() => messageStore.removeMessages(index)}
-          >
-            &times;
-          </span>
-        </div>
+      {messageStore.successMessages.map((m, index) => (
+        <div>{m.text}</div>
       ))}
     </div>
   );
