@@ -7,21 +7,13 @@ import CheckBoxes from "./components/Checkboxes";
 import Search from "./components/Search";
 import SearchResults from "./components/SearchResults.js";
 import Messages from "./components/Messages";
-import { Spinner } from "react-bootstrap";
-import Button from "@material-ui/core/Button";
+import { Button, CircularProgress } from "@material-ui/core";
 
-import {
-  Container,
-  FormControl,
-  FormGroup,
-  FormLabel,
-  ButtonGroup,
-  Grid,
-} from "@material-ui/core";
+import { Container, FormControl, ButtonGroup, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const SearchPage = ({ config, store, messageStore }) => {
-  async function updateAgency(row) {
+  async function updateAgency() {
     const url = `${config.api_url}/agency-location`;
     const response = await fetch(url, {
       method: "PUT",
@@ -55,7 +47,7 @@ const SearchPage = ({ config, store, messageStore }) => {
       <Search messageStore={messageStore} config={config} store={store} />
       <form onSubmit={save}>
         {store.fetching ? (
-          <Spinner animation="border" role="status"></Spinner>
+          <CircularProgress color="secondary" />
         ) : store.matches.length > 0 ? (
           <div>
             <Messages messageStore={messageStore} />
@@ -69,50 +61,47 @@ const SearchPage = ({ config, store, messageStore }) => {
         {store.hasActive && (
           <Grid container spacing={2}>
             <Grid item md={6}>
-            <FormControl component="fieldset"  className={classes.formControl}>
-              {lines.map((claims, key) => (
-                <CheckBoxes
-                  store={store}
-                  key={key}
-                  data={claims}
-                  indicators={toJS(store.active)["dl_selections"]}
-                  //updateIndicators={(event) => updateInds(event)}
-                />
-              ))}
-            </FormControl>
-            </Grid>
-            <Grid item md={6}>
-            <FormControl component="fieldset" className={classes.formControl}>
-                {claimsSel.map((claims, key) => (
+              <FormControl component="fieldset" className={classes.formControl}>
+                {lines.map((claims, key) => (
                   <CheckBoxes
                     store={store}
                     key={key}
                     data={claims}
                     indicators={toJS(store.active)["dl_selections"]}
-                    //updateIndicators={(event) => updateInds(event)}
                   />
                 ))}
-              {secondary.map((claims, key) => (
-                <CheckBoxes
-                  store={store}
-                  key={key}
-                  data={claims}
-                  indicators={toJS(store.active)["dl_selections"]}
-                  //updateIndicators={(event) => updateInds(event)}
-                  type="radio"
-                />
-              ))}
-              <ButtonGroup>
-                <Button variant="contained" color="primary" type="submit">
-                  Save
-                </Button>
-                <Button variant="contained" color="secondary">
-                  Cancel
-                </Button>
-              </ButtonGroup>
-            </FormControl>
+              </FormControl>
             </Grid>
+            <Grid item md={6}>
+              <FormControl component="fieldset" className={classes.formControl}>
+                {claimsSel.map((claims, key) => (
+                  <CheckBoxes
+                    store={store}
+                    key={key}
+                    data={claims}
+                    type="radio"
+                    indicators={toJS(store.active)["dl_selections"]}
+                  />
+                ))}
+                {secondary.map((claims, key) => (
+                  <CheckBoxes
+                    store={store}
+                    key={key}
+                    data={claims}
+                    indicators={toJS(store.active)["dl_selections"]}
+                  />
+                ))}
+                <ButtonGroup>
+                  <Button variant="contained" color="primary" type="submit">
+                    Save
+                  </Button>
+                  <Button variant="contained" color="secondary">
+                    Cancel
+                  </Button>
+                </ButtonGroup>
+              </FormControl>
             </Grid>
+          </Grid>
         )}
       </form>
     </Container>
