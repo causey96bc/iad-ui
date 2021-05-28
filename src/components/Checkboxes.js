@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
+
 import {
   Box,
   Checkbox,
@@ -8,7 +9,6 @@ import {
   Grid,
   Radio,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/Styles";
 
 const CheckBoxes = ({ store, data, indicators = {}, type = "checkbox" }) => {
   const [htmlId, heading, labels] = data;
@@ -27,12 +27,6 @@ const CheckBoxes = ({ store, data, indicators = {}, type = "checkbox" }) => {
   const updateIndicators = (e) => {
     store.updateIndicators({ name: e.target.name, value: e.target.checked });
   };
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexDirection: "row",
-    },
-  }));
-  const classes = useStyles();
 
   return (
     <Grid container flexDirection="row">
@@ -64,7 +58,6 @@ const CheckBoxes = ({ store, data, indicators = {}, type = "checkbox" }) => {
                       id={htmlId + "-" + index}
                       disabled={disabled}
                       onChange={updateIndicators}
-                      // inputProps={{className: htmlId}}
                       name={key}
                       checked={indicators[key]}
                     />

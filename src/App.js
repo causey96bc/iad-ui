@@ -1,20 +1,22 @@
-import './App.css';
-import  React from "react";
-import SearchStore  from "./SearchStore.js";
-import User from './components/User';
-import  SearchPage  from "./SearchPage";
-import  MessageStore  from "./MessageStore";
-function App({config}) {
+import React from "react";
+import SearchStore from "./stores/SearchStore.js";
+import User from "./components/User";
+import SearchPage from "./SearchPage";
+import MessageStore from "./stores/MessageStore";
+function App({ config }) {
   const store = new SearchStore();
-  const messageStore = new MessageStore()
-  // const [user, setUser] = useState({})
+  const messageStore = new MessageStore();
   return (
     <div className="App">
       <main className="container">
-      <div className= "row"> 
-      <User/>
-      <SearchPage config={config} store={store} messageStore={messageStore}/>
-      </div>
+        <div className="row">
+          <User />
+          <SearchPage
+            config={config}
+            store={store}
+            messageStore={messageStore}
+          />
+        </div>
       </main>
     </div>
   );
