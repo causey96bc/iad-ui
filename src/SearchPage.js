@@ -15,26 +15,9 @@ import {
   makeStyles,
   ButtonGroup,
   Grid,
-  Snackbar,
 } from "@material-ui/core";
 
-import MuiAlert from "@material-ui/lab/Alert";
-
 const SearchPage = ({ config, store, messageStore }) => {
-  function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
-
   async function updateAgency() {
     const url = `${config.api_url}/agency-location`;
     try {
@@ -46,12 +29,7 @@ const SearchPage = ({ config, store, messageStore }) => {
         },
         body: JSON.stringify(store.active),
       });
-      <Snackbar autoHideDuration={4000}>
-        <Alert onClose={handleClose} severity="success">
-          <Messages messageStore={messageStore} />
-        </Alert>
-      </Snackbar>;
-
+      <Messages messageStore={messageStore} />;
       const json = await response.json();
       return json;
     } catch (error) {}
