@@ -14,10 +14,15 @@ const CheckBoxes = ({ store, data, indicators = {}, type = "checkbox" }) => {
   const [htmlId, heading, labels] = data;
   const selAll = (e) => {
     const checked = e.target.checked;
-     let checkedArray = document.querySelectorAll(`input[id^="${e.target.id}"]:not(#${e.target.id})`)
-     store.selectAll(Array.from(checkedArray).map((elem) => {
-      return elem.name;
-    }), checked)
+    let checkedArray = document.querySelectorAll(
+      `input[id^="${e.target.id}"]:not(#${e.target.id})`
+    );
+    store.selectAll(
+      Array.from(checkedArray).map((elem) => {
+        return elem.name;
+      }),
+      checked
+    );
   };
   const updateIndicators = (e) => {
     store.updateIndicators({ name: e.target.name, value: e.target.checked });
@@ -34,11 +39,16 @@ const CheckBoxes = ({ store, data, indicators = {}, type = "checkbox" }) => {
       <FormControl>
         <h5>{heading}</h5>
         {type === "checkbox" ? (
-          <FormControlLabel label="Select All" control={<Checkbox
-            id={htmlId}
-            onClick={selAll}
-            className={`${htmlId}`}
-          ></Checkbox>}/>
+          <FormControlLabel
+            label="Select All"
+            control={
+              <Checkbox
+                id={htmlId}
+                onClick={selAll}
+                className={`${htmlId}`}
+              ></Checkbox>
+            }
+          />
         ) : null}
 
         {labels.map((label, index) => {
@@ -54,7 +64,7 @@ const CheckBoxes = ({ store, data, indicators = {}, type = "checkbox" }) => {
                       id={htmlId + "-" + index}
                       disabled={disabled}
                       onChange={updateIndicators}
-                      // inputProps={{class: htmlId}}
+                      // inputProps={{className: htmlId}}
                       name={key}
                       checked={indicators[key]}
                     />

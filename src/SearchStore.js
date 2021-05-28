@@ -3,8 +3,8 @@ import { observable, action, makeObservable, computed, autorun } from "mobx";
 class SearchStore {
   matches = [];
   active = {};
-  fetching =  false;
-  hasSearched = false
+  fetching = false;
+  hasSearched = false;
   constructor() {
     makeObservable(this, {
       matches: observable,
@@ -26,13 +26,13 @@ class SearchStore {
   logStoreDetails = () => {
     console.log("store logger");
   };
-  
-  setHasSearched(isSearching){
-    this.hasSearched = isSearching
+
+  setHasSearched(isSearching) {
+    this.hasSearched = isSearching;
   }
 
-  setFetching(isFetching){
-    this.fetching = isFetching
+  setFetching(isFetching) {
+    this.fetching = isFetching;
   }
 
   setActive(active) {
@@ -41,32 +41,36 @@ class SearchStore {
   setMatches(matches) {
     this.matches = matches;
   }
-  get getMatches(){
-    return this.matches.length
+  get getMatches() {
+    return this.matches.length;
   }
-  updateIndicators({name, value}) {
+  updateIndicators({ name, value }) {
     const newActive = {};
     // Update the dl_selectors object for the given indicator
     Object.keys(this.active.dl_selections).map((indicator) => {
-      newActive[indicator] = indicator === name ? value : this.active.dl_selections.hasOwnProperty(indicator) ? this.active.dl_selections[indicator] : false;
+      newActive[indicator] =
+        indicator === name
+          ? value
+          : this.active.dl_selections.hasOwnProperty(indicator)
+          ? this.active.dl_selections[indicator]
+          : false;
     });
     this.active.dl_selections = newActive;
   }
   get hasActive() {
-    return Object.keys(this.active).length > 0 ? true : false
+    return Object.keys(this.active).length > 0 ? true : false;
   }
-  selectAll(names, checked){
-    const newName = {}
-      Object.keys(this.active.dl_selections).forEach((name) => {
-        console.log("name", name);
-        if (names.includes(name)){
-      newName[name] = checked
-      }else{
-        newName[name] = this.active.dl_selections[name]
-      }})
-    this.active.dl_selections  = newName
+  selectAll(names, checked) {
+    const newName = {};
+    Object.keys(this.active.dl_selections).forEach((name) => {
+      if (names.includes(name)) {
+        newName[name] = checked;
+      } else {
+        newName[name] = this.active.dl_selections[name];
+      }
+    });
+    this.active.dl_selections = newName;
   }
 }
 
-
-export default SearchStore
+export default SearchStore;
