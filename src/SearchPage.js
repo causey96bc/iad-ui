@@ -41,6 +41,7 @@ const SearchPage = ({ config, store, messageStore }) => {
     } else {
       store.active = null;
     }
+    window.location.reload(false);
   }
 
   const useStyles = makeStyles((theme) => ({
