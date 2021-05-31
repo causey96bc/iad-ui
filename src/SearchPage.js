@@ -13,11 +13,13 @@ import {
   Container,
   FormControl,
   makeStyles,
-  ButtonGroup,
   Grid,
 } from "@material-ui/core";
+import AlertDialog from "./components/AlertDialog";
 
 const SearchPage = ({ config, store, messageStore }) => {
+  const [open, setOpen] = React.useState(false);
+
   async function updateAgency() {
     const url = `${config.api_url}/agency-location`;
     try {
@@ -68,6 +70,13 @@ const SearchPage = ({ config, store, messageStore }) => {
   }));
   const classes = useStyles();
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <Container container>
       <Search messageStore={messageStore} config={config} store={store} />
@@ -80,7 +89,13 @@ const SearchPage = ({ config, store, messageStore }) => {
             <SearchResults store={store} config={config} />
           </div>
         ) : store.hasSearched ? (
-          <p>no matches found</p>
+          // <AlertDialog
+          //   handleOpen={handleOpen}
+          //   onclose={handleClose}
+          //   open={open}
+          //   setOpen={setOpen}
+          // />
+          <p>No mathes found</p>
         ) : (
           <></>
         )}

@@ -38,7 +38,10 @@ const Search = ({ config, store, messageStore }) => {
         text: "this was a successful search",
       });
     } catch (error) {
-      console.log(error);
+      messageStore.handleMessage({
+        type: "error",
+        text: "this was a unsuccessful search, please try again!",
+      });
     }
   };
 
