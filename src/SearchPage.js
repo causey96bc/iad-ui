@@ -29,19 +29,31 @@ const SearchPage = ({ config, store, messageStore }) => {
         },
         body: JSON.stringify(store.active),
       });
-      <Messages messageStore={messageStore} />;
+
       const json = await response.json();
       return json;
-    } catch (error) {}
+    } catch (error) {
+      messageStore.handleMessage({
+        type: "error",
+        text: "There was an error when processing your selections. Please start over and try again.",
+      });
+    }
   }
   async function save(e) {
     e.preventDefault();
     if (store.active) {
+      messageStore.handleMessage({
+        type: "success",
+        text: "You have saved your download selections successfuly!",
+      });
       await updateAgency(store.active);
     } else {
       store.active = null;
     }
-    window.location.reload(false);
+    window.location.reload(true);
+  }
+  function cancel() {
+    document.getElementById("download-selection").reset();
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -54,12 +66,12 @@ const SearchPage = ({ config, store, messageStore }) => {
   return (
     <Container container>
       <Search messageStore={messageStore} config={config} store={store} />
-      <form onSubmit={save}>
+      <form id="download-selection" onSubmit={save}>
+        <Messages messageStore={messageStore} />
         {store.fetching ? (
           <CircularProgress color="secondary" />
         ) : store.matches.length > 0 ? (
           <div>
-            <Messages messageStore={messageStore} />
             <SearchResults store={store} config={config} />
           </div>
         ) : store.hasSearched ? (
@@ -104,7 +116,12 @@ const SearchPage = ({ config, store, messageStore }) => {
                   <Button variant="contained" color="primary" type="submit">
                     Save
                   </Button>
-                  <Button variant="contained" color="secondary">
+                  <Button
+                    onClick={cancel}
+                    variant="contained"
+                    color="secondary"
+                    type="click"
+                  >
                     Cancel
                   </Button>
                 </ButtonGroup>
