@@ -42,18 +42,23 @@ const SearchPage = ({ config, store, messageStore }) => {
   async function save(e) {
     e.preventDefault();
     if (store.active) {
-      messageStore.handleMessage({
-        type: "success",
-        text: "You have saved your download selections successfuly!",
-      });
       await updateAgency(store.active);
     } else {
       store.active = null;
     }
-    window.location.reload(true);
+    if (messageStore.messageCount !== 0) {
+      messageStore.messages.shift();
+      messageStore.handleMessage({
+        type: "success",
+        text: "You have saved your download selections successfuly!",
+      });
+      setTimeout(() => {
+        window.location.reload(true);
+      }, 2500);
+    }
   }
   function cancel() {
-    document.getElementById("download-selection").reset();
+    window.location.reload(true);
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -112,19 +117,17 @@ const SearchPage = ({ config, store, messageStore }) => {
                     indicators={toJS(store.active)["dl_selections"]}
                   />
                 ))}
-                <ButtonGroup>
-                  <Button variant="contained" color="primary" type="submit">
-                    Save
-                  </Button>
-                  <Button
-                    onClick={cancel}
-                    variant="contained"
-                    color="secondary"
-                    type="click"
-                  >
-                    Cancel
-                  </Button>
-                </ButtonGroup>
+                <Button variant="contained" color="primary" type="submit">
+                  Save
+                </Button>
+                <Button
+                  onClick={cancel}
+                  variant="contained"
+                  color="secondary"
+                  type="click"
+                >
+                  Cancel
+                </Button>
               </FormControl>
             </Grid>
           </Grid>
