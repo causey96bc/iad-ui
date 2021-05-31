@@ -33,10 +33,10 @@ const Search = ({ config, store, messageStore }) => {
         }
         store.setFetching(false);
       }, 500);
-      messageStore.handleMessage({
-        type: "success",
-        text: "this was a successful search",
-      });
+      // messageStore.handleMessage({
+      //   type: "success",
+      //   text: "this was a successful search",
+      // });
     } catch (error) {
       console.log(error);
     }
