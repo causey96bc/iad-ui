@@ -73,4 +73,4 @@ class SearchStore {
   }
 }
 
-export default SearchStore;
+export default new SearchStore();

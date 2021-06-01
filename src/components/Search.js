@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { searchKeys } from "./metaconfig";
 import { messageStore } from "./Messages";
+import store from "../stores/SearchStore";
 
 import {
   TextField,
@@ -10,7 +11,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
-const Search = ({ config, store }) => {
+const Search = ({ config }) => {
   const [searchKey, setSearchKey] = useState("ivans_account");
   const [searchStr, setSearchStr] = useState("");
 

@@ -13,7 +13,9 @@ import {
   makeStyles,
   FormLabel,
 } from "@material-ui/core";
-const SearchResults = ({ store }) => {
+import store from "../stores/SearchStore";
+
+const SearchResults = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 

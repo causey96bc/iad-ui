@@ -1,5 +1,4 @@
 import React from "react";
-import SearchStore from "./stores/SearchStore.js";
 import User from "./components/User";
 import SearchPage from "./components/SearchPage";
 import Messages from "./components/Messages";
@@ -11,10 +10,7 @@ function App({ config }) {
         <div className="row">
           <User />
           <Messages />
-          <SearchPage
-            config={config}
-            store={new SearchStore()}
-          />
+          <SearchPage config={config} />
         </div>
       </main>
     </div>

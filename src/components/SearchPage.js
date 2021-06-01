@@ -6,6 +6,7 @@ import CheckBoxes from "./Checkboxes";
 import Search from "./Search";
 import SearchResults from "./SearchResults.js";
 import { messageStore } from "./Messages";
+import store from "../stores/SearchStore";
 
 import {
   Button,
@@ -16,7 +17,7 @@ import {
   Grid,
 } from "@material-ui/core";
 
-const SearchPage = ({ config, store }) => {
+const SearchPage = ({ config }) => {
   async function updateAgency() {
     const url = `${config.api_url}/agency-location`;
     try {
@@ -66,13 +67,13 @@ const SearchPage = ({ config, store }) => {
 
   return (
     <Container container>
-      <Search config={config} store={store} />
+      <Search config={config} />
       <form id="download-selection" onSubmit={save} onReset={reset}>
         {store.fetching ? (
           <CircularProgress color="secondary" />
         ) : store.matches.length > 0 ? (
           <div>
-            <SearchResults store={store} config={config} />
+            <SearchResults config={config} />
           </div>
         ) : store.hasSearched ? (
           <p>No matches found</p>
@@ -85,7 +86,6 @@ const SearchPage = ({ config, store }) => {
               <FormControl component="fieldset" className={classes.formControl}>
                 {lines.map((claims, key) => (
                   <CheckBoxes
-                    store={store}
                     key={key}
                     data={claims}
                     indicators={toJS(store.active)["dl_selections"]}
@@ -97,7 +97,6 @@ const SearchPage = ({ config, store }) => {
               <FormControl component="fieldset" className={classes.formControl}>
                 {claimsSel.map((claims, key) => (
                   <CheckBoxes
-                    store={store}
                     key={key}
                     data={claims}
                     type="radio"
@@ -106,7 +105,6 @@ const SearchPage = ({ config, store }) => {
                 ))}
                 {secondary.map((claims, key) => (
                   <CheckBoxes
-                    store={store}
                     key={key}
                     data={claims}
                     indicators={toJS(store.active)["dl_selections"]}
