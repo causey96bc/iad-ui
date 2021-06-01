@@ -47,9 +47,12 @@ const Messages = ({ messageStore }) => {
           key={index}
           open={open}
           autoHideDuration={8000}
-          onClose={handleClose}
+          onClose={(e) => handleClose(e, m.type, index)}
         >
-          <Alert onClose={handleClose} severity="error">
+          <Alert
+            onClose={(e) => handleClose(e, m.type, index)}
+            severity="error"
+          >
             {m.text}
           </Alert>
         </Snackbar>
