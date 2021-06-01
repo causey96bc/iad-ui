@@ -1,21 +1,15 @@
 import React from "react";
-import { lines, claimsSel, secondary } from "./metaconfig";
-import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
-import CheckBoxes from "./Checkboxes";
-import Search from "./Search";
-import SearchResults from "./SearchResults.js";
-import { messageStore } from "./Messages";
-import store from "../stores/SearchStore";
-
 import {
-  Button,
   CircularProgress,
   Container,
-  FormControl,
-  makeStyles,
-  Grid,
 } from "@material-ui/core";
+import { observer } from "mobx-react-lite";
+
+import { messageStore } from "./Messages";
+import store from "../stores/SearchStore";
+import Search from "./Search"
+import SearchResults from "./SearchResults"
+import Selections from "./Selections";
 
 const SearchPage = ({ config }) => {
   async function updateAgency() {
@@ -58,13 +52,6 @@ const SearchPage = ({ config }) => {
     store.setActive({});
   }
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-    },
-  }));
-  const classes = useStyles();
-
   return (
     <Container container>
       <Search config={config} />
@@ -80,50 +67,7 @@ const SearchPage = ({ config }) => {
         ) : (
           <></>
         )}
-        {store.hasActive && (
-          <Grid container spacing={2}>
-            <Grid item md={6}>
-              <FormControl component="fieldset" className={classes.formControl}>
-                {lines.map((claims, key) => (
-                  <CheckBoxes
-                    key={key}
-                    data={claims}
-                    indicators={toJS(store.active)["dl_selections"]}
-                  />
-                ))}
-              </FormControl>
-            </Grid>
-            <Grid item md={6}>
-              <FormControl component="fieldset" className={classes.formControl}>
-                {claimsSel.map((claims, key) => (
-                  <CheckBoxes
-                    key={key}
-                    data={claims}
-                    type="radio"
-                    indicators={toJS(store.active)["dl_selections"]}
-                  />
-                ))}
-                {secondary.map((claims, key) => (
-                  <CheckBoxes
-                    key={key}
-                    data={claims}
-                    indicators={toJS(store.active)["dl_selections"]}
-                  />
-                ))}
-                <Button variant="contained" color="primary" type="submit">
-                  Save
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  type="reset"
-                >
-                  Cancel
-                </Button>
-              </FormControl>
-            </Grid>
-          </Grid>
-        )}
+        {store.hasActive && <Selections />}
       </form>
     </Container>
   );
