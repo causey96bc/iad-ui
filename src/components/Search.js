@@ -36,7 +36,7 @@ const Search = ({ config, store, messageStore }) => {
           store.setMatches([]);
           messageStore.handleMessage({
             type: "error",
-            text: "this was a unsuccessful search, please try again!",
+            text: "Search returned no results. Please modify search inputs and try again.",
           });
         }
         store.setFetching(false);
