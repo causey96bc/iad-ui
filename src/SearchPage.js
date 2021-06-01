@@ -5,7 +5,6 @@ import { toJS } from "mobx";
 import CheckBoxes from "./components/Checkboxes";
 import Search from "./components/Search";
 import SearchResults from "./components/SearchResults.js";
-import Messages from "./components/Messages";
 
 import {
   Button,
@@ -15,11 +14,8 @@ import {
   makeStyles,
   Grid,
 } from "@material-ui/core";
-import AlertDialog from "./components/AlertDialog";
 
 const SearchPage = ({ config, store, messageStore }) => {
-  const [open, setOpen] = React.useState(false);
-
   async function updateAgency() {
     const url = `${config.api_url}/agency-location`;
     try {
@@ -45,20 +41,15 @@ const SearchPage = ({ config, store, messageStore }) => {
     e.preventDefault();
     if (store.active) {
       await updateAgency(store.active);
-    } else {
-      store.active = null;
-    }
-    if (messageStore.messageCount !== 0) {
-      messageStore.messages.shift();
       messageStore.handleMessage({
         type: "success",
         text: "You have saved your download selections successfuly!",
       });
-      setTimeout(() => {
-        window.location.reload(true);
-      }, 2500);
+    } else {
+      store.active = null;
     }
   }
+
   function cancel() {
     window.location.reload(true);
   }
@@ -70,18 +61,10 @@ const SearchPage = ({ config, store, messageStore }) => {
   }));
   const classes = useStyles();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   return (
     <Container container>
       <Search messageStore={messageStore} config={config} store={store} />
       <form id="download-selection" onSubmit={save}>
-        <Messages messageStore={messageStore} />
         {store.fetching ? (
           <CircularProgress color="secondary" />
         ) : store.matches.length > 0 ? (
@@ -89,13 +72,7 @@ const SearchPage = ({ config, store, messageStore }) => {
             <SearchResults store={store} config={config} />
           </div>
         ) : store.hasSearched ? (
-          // <AlertDialog
-          //   handleOpen={handleOpen}
-          //   onclose={handleClose}
-          //   open={open}
-          //   setOpen={setOpen}
-          // />
-          <p>No mathes found</p>
+          <p>No matches found</p>
         ) : (
           <></>
         )}

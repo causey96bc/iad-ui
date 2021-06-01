@@ -26,23 +26,22 @@ const Search = ({ config, store, messageStore }) => {
       store.setFetching(true);
       const data = await results.json();
       setTimeout(() => {
-        if (data && data.data) {
+        if (data && data.data.length > 0) {
           store.setMatches(data.data);
+          messageStore.handleMessage({
+            type: "success",
+            text: "this was a successful search",
+          });
         } else {
           store.setMatches([]);
+          messageStore.handleMessage({
+            type: "error",
+            text: "this was a unsuccessful search, please try again!",
+          });
         }
         store.setFetching(false);
       }, 500);
-      messageStore.handleMessage({
-        type: "success",
-        text: "this was a successful search",
-      });
-    } catch (error) {
-      messageStore.handleMessage({
-        type: "error",
-        text: "this was a unsuccessful search, please try again!",
-      });
-    }
+    } catch (error) {}
   };
 
   const useStyles = makeStyles((theme) => ({
