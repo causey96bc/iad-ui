@@ -24,7 +24,7 @@ class SearchStore {
   }
 
   logStoreDetails = () => {
-    console.log("store logger");
+    //add any store loggers here
   };
 
   setHasSearched(isSearching) {

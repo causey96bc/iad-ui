@@ -15,15 +15,14 @@ export default class MessageStore {
       successMessages: computed,
       errorMessages: computed,
       addMessages: action,
-      removeMessages: action,
+      removeMessage: action,
       handleMessage: action,
       messageCount: computed,
     });
     autorun(this.logStoreDetails);
   }
   logStoreDetails = () => {
-    console.log("store logger for messages");
-    console.log("current messages", toJS(this.messages));
+    //add any store loggers here
   };
   addMessages(text) {
     this.messages.push(text);
@@ -36,10 +35,10 @@ export default class MessageStore {
   }
 
   get errorMessages() {
-    return this.messages.filter((message) => message.type === "false");
+    return this.messages.filter((message) => message.type === "error");
   }
 
-  removeMessages(index) {
+  removeMessage(index) {
     if (this.messages.length > 0) {
       this.messages = this.messages.filter((item, idx) => idx !== index);
     }

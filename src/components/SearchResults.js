@@ -18,7 +18,6 @@ const SearchResults = ({ store }) => {
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-    console.log("e", newPage);
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value));
