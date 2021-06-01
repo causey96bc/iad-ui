@@ -45,13 +45,15 @@ const SearchPage = ({ config, store, messageStore }) => {
         type: "success",
         text: "You have saved your download selections successfuly!",
       });
-    } else {
-      store.active = null;
     }
+    // reset form after saving
+    reset(e);
   }
 
-  function cancel() {
-    window.location.reload(true);
+  function reset(e) {
+    const form = e.target;
+    form.reset();
+    store.setActive({});
   }
 
   const useStyles = makeStyles((theme) => ({
@@ -64,7 +66,7 @@ const SearchPage = ({ config, store, messageStore }) => {
   return (
     <Container container>
       <Search messageStore={messageStore} config={config} store={store} />
-      <form id="download-selection" onSubmit={save}>
+      <form id="download-selection" onSubmit={save} onReset={reset}>
         {store.fetching ? (
           <CircularProgress color="secondary" />
         ) : store.matches.length > 0 ? (
@@ -113,10 +115,9 @@ const SearchPage = ({ config, store, messageStore }) => {
                   Save
                 </Button>
                 <Button
-                  onClick={cancel}
                   variant="contained"
                   color="secondary"
-                  type="click"
+                  type="reset"
                 >
                   Cancel
                 </Button>
