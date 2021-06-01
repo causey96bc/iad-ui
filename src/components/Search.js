@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { searchKeys } from "./metaconfig";
+import { messageStore } from "./Messages";
 
 import {
   TextField,
@@ -9,7 +10,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
-const Search = ({ config, store, messageStore }) => {
+const Search = ({ config, store }) => {
   const [searchKey, setSearchKey] = useState("ivans_account");
   const [searchStr, setSearchStr] = useState("");
 
@@ -28,15 +29,15 @@ const Search = ({ config, store, messageStore }) => {
       setTimeout(() => {
         if (data && data.data.length > 0) {
           store.setMatches(data.data);
-          messageStore.handleMessage({
+          messageStore.addMessage({
             type: "success",
-            text: "this was a successful search",
+            text: "Search completed",
           });
         } else {
           store.setMatches([]);
-          messageStore.handleMessage({
+          messageStore.addMessage({
             type: "error",
-            text: "Search returned no results. Please modify search inputs and try again.",
+            text: "Search returned no results.",
           });
         }
         store.setFetching(false);

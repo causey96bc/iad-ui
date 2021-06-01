@@ -5,6 +5,7 @@ import { toJS } from "mobx";
 import CheckBoxes from "./Checkboxes";
 import Search from "./Search";
 import SearchResults from "./SearchResults.js";
+import { messageStore } from "./Messages";
 
 import {
   Button,
@@ -15,7 +16,7 @@ import {
   Grid,
 } from "@material-ui/core";
 
-const SearchPage = ({ config, store, messageStore }) => {
+const SearchPage = ({ config, store }) => {
   async function updateAgency() {
     const url = `${config.api_url}/agency-location`;
     try {
@@ -31,7 +32,7 @@ const SearchPage = ({ config, store, messageStore }) => {
       const json = await response.json();
       return json;
     } catch (error) {
-      messageStore.handleMessage({
+      messageStore.addMessage({
         type: "error",
         text: "There was an error when processing your selections. Please start over and try again.",
       });
@@ -41,7 +42,7 @@ const SearchPage = ({ config, store, messageStore }) => {
     e.preventDefault();
     if (store.active) {
       await updateAgency(store.active);
-      messageStore.handleMessage({
+      messageStore.addMessage({
         type: "success",
         text: "You have saved your download selections successfuly!",
       });
@@ -65,7 +66,7 @@ const SearchPage = ({ config, store, messageStore }) => {
 
   return (
     <Container container>
-      <Search messageStore={messageStore} config={config} store={store} />
+      <Search config={config} store={store} />
       <form id="download-selection" onSubmit={save} onReset={reset}>
         {store.fetching ? (
           <CircularProgress color="secondary" />
