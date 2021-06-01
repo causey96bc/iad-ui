@@ -1,7 +1,7 @@
 import React from "react";
 import SearchStore from "./stores/SearchStore.js";
 import User from "./components/User";
-import SearchPage from "./SearchPage";
+import SearchPage from "./components/SearchPage";
 import MessageStore from "./stores/MessageStore";
 import Messages from "./components/Messages";
 function App({ config }) {

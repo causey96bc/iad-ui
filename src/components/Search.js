@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { searchKeys } from "../metaconfig";
+import { searchKeys } from "./metaconfig";
 
 import {
   TextField,

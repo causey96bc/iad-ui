@@ -2,9 +2,9 @@ import React from "react";
 import { lines, claimsSel, secondary } from "./metaconfig";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
-import CheckBoxes from "./components/Checkboxes";
-import Search from "./components/Search";
-import SearchResults from "./components/SearchResults.js";
+import CheckBoxes from "./Checkboxes";
+import Search from "./Search";
+import SearchResults from "./SearchResults.js";
 
 import {
   Button,
