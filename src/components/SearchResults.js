@@ -42,9 +42,7 @@ const SearchResults = () => {
   };
   return (
     <>
-      <span>
-        <h4>Agencies</h4>
-      </span>
+      <h4>Agencies</h4>
       <Grid container spacing={5}>
         <Grid item xs={12} sm={8}>
           <Table size={"small"}>
