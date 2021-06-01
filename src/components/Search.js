@@ -83,7 +83,7 @@ const Search = ({ config, store, messageStore }) => {
         </NativeSelect>
       </FormControl>
       <FormControl className={classes.formControl}>
-        <TextField onChange={(e) => setSearchStr(e.target.value)} />
+        <TextField value={searchStr} onChange={(e) => setSearchStr(e.target.value)} />
       </FormControl>
       <FormControl className={classes.formControl}>
         <Button variant="contained" color="primary" type="submit">
