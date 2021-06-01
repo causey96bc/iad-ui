@@ -11,6 +11,7 @@ import {
   TablePagination,
   Box,
   makeStyles,
+  FormLabel,
 } from "@material-ui/core";
 const SearchResults = ({ store }) => {
   const [page, setPage] = React.useState(0);
@@ -98,14 +99,16 @@ const SearchResults = ({ store }) => {
             {store.hasActive && (
               <Grid container>
                 <Box color="text.primary">
-                  Address: {store.active.address.line_1},{" "}
-                  {store.active.address.city}, {store.active.address.state}{" "}
-                  {store.active.address.zip}
+                  <FormLabel>Address:</FormLabel>
+                  <div>{store.active.address.line_1}</div>
+                  <div>
+                    {store.active.address.city}, {store.active.address.state} {store.active.address.zip}
+                  </div>
                 </Box>
                 <Grid item>
-                  <Box>Phone: {store.active.phone_number}</Box>
-                  <Box>Last Update: {store.active.last_upd_date}</Box>
-                  <Box>Machine Address: {store.active.ibm_machine_address}</Box>
+                  <Box><FormLabel>Phone</FormLabel>: {store.active.phone_number}</Box>
+                  <Box><FormLabel>Last Update</FormLabel>: {store.active.last_upd_date}</Box>
+                  <Box><FormLabel>Machine Address</FormLabel>: {store.active.ibm_machine_address}</Box>
                 </Grid>
               </Grid>
             )}
