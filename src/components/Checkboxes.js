@@ -6,8 +6,8 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  Grid,
   Radio,
+  RadioGroup,
 } from "@material-ui/core";
 
 const CheckBoxes = ({ store, data, indicators = {}, type = "checkbox" }) => {
@@ -29,10 +29,10 @@ const CheckBoxes = ({ store, data, indicators = {}, type = "checkbox" }) => {
   };
 
   return (
-    <Grid container flexDirection="row">
-      <FormControl>
-        <h5>{heading}</h5>
-        {type === "checkbox" ? (
+    <>
+      <h5>{heading}</h5>
+      {type === "checkbox" ? (
+        <FormControl>
           <FormControlLabel
             label="Select All"
             control={
@@ -43,46 +43,34 @@ const CheckBoxes = ({ store, data, indicators = {}, type = "checkbox" }) => {
               ></Checkbox>
             }
           />
-        ) : null}
-
-        {labels.map((label, index) => {
-          const [key, tmp, disabled] = label;
-          return (
-            <Grid container>
-              {type === "checkbox" ? (
-                <FormControlLabel
-                  label={tmp}
-                  control={
-                    <Checkbox
-                      type="checkbox"
-                      id={htmlId + "-" + index}
-                      disabled={disabled}
-                      onChange={updateIndicators}
-                      name={key}
-                      checked={indicators[key]}
-                    />
-                  }
+          {labels.map(([key, title, disabled], index) => <FormControlLabel
+            label={title}
+            control={
+                <Checkbox
+                  id={htmlId + "-" + index}
+                  disabled={disabled}
+                  onChange={updateIndicators}
+                  name={key}
+                  checked={indicators[key]}
                 />
-              ) : (
-                <FormControlLabel
-                  label={tmp}
-                  control={
-                    <Radio
-                      type="radio"
-                      id={htmlId + "-" + index}
-                      disabled={disabled}
-                      name={heading}
-                      value={tmp}
-                      onChange={updateIndicators}
-                    />
-                  }
-                />
-              )}
-            </Grid>
-          );
-        })}
-      </FormControl>
-    </Grid>
+            }
+          />
+          )}
+        </FormControl>) : <RadioGroup>
+        {labels.map(([key, title, disabled], index) => <FormControlLabel
+          label={title}
+          control={
+            <Radio
+              id={htmlId + "-" + index}
+              disabled={disabled}
+              value={title}
+              onChange={updateIndicators}
+            />
+          }
+        />)}
+      </RadioGroup>
+      }
+    </>
   );
 };
 
